@@ -2,12 +2,21 @@
 
 This project provides a Gradle project template that can compile Minecraft mods
 written in Kotlin for multiple modloaders using a common project for the sources.
-This project does not require any third party libraries or dependencies.
+This project is mostly fine-tuned for Cobblemon.
 
-This Kotlin version is a fork of [the original Multiloader Template](https://github.com/jaredlll08/MultiLoader-Template).
+This Kotlin version is a fork of the [Kotlin fork](https://github.com/Erdragh/Kotlin-Multiloader-Template) of the [the original Multiloader Template](https://github.com/jaredlll08/MultiLoader-Template).
 
-I also backported this template to 1.20.1 with Forge and Fabric using Neo's MDG Legacy Plugin.
-You can find it on the `1.20.1` branch.
+Template was overhauled, the dependencies and overall tooling were updated to preserve parity with Cobblemon dependency versions.
+
+The stuff that got updated:
+* Kotlin: 2.3.20
+* NeoForge moddev: 2.0.141
+* Fabric loom: 1.16
+* Neoforge: 21.1.228
+* KotlinForForge: 5.11
+* FabricLoader: 0.19.2
+* FabricApi: 0.116.11
+* FabricLanguageKotlin: 1.12.10+kotlin.2.3.20
 
 ## Getting Started
 
@@ -80,12 +89,6 @@ For example if you wanted to remove support for `forge` you would follow the fol
 
 ## Note on the fork
 
-I've taken the following liberties when porting this template to Kotlin:
-1. *Rewrote the bulk of the build script in Gradle's Kotlin DSL*, for better or for
-   worse it's here to stay and if you want to write your mod in Kotlin you should
-   know how to handle Kotlin's syntax for the build script.
-2. *Use Gradle's Version Catalog system to manage dependencies and libraries*, this allows
-   specifying versions and artifacts of dependencies in one place, which can then be
-   used in every subproject and even the `buildSrc` project.
-3. *Use JetBrains' Dokka Gradle plugin* to generate full javadoc jars containing
-   the documentation for both, the Kotlin sources and the Java sources.
+This fork aims to more in line with latest tooling updates:
+
+TODO: fill me or riot
