@@ -44,6 +44,10 @@ repositories {
         name = "kotlinforforge"
         url = uri("https://thedarkcolour.github.io/KotlinForForge/")
     }
+    maven {
+        name = "cobblemon"
+        url = uri("https://artefacts.cobblemon.com/releases/")
+    }
 }
 
 // Declare capabilities on the outgoing configurations.

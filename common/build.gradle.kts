@@ -4,15 +4,11 @@ plugins {
 }
 
 neoForge {
-    neoFormVersion = libs.versions.neoForm
+    neoFormVersion = libs.versions.neoForm.get()
     // Automatically enable AccessTransformers if the file exists
     val at = file("src/main/resources/META-INF/accesstransformer.cfg")
     if (at.exists()) {
         accessTransformers.from(at.absolutePath)
-    }
-    parchment {
-        minecraftVersion = libs.versions.parchmentMC
-        mappingsVersion = libs.versions.parchment
     }
 }
 
@@ -21,6 +17,8 @@ dependencies {
     // fabric and neoforge both bundle mixinextras, so it is safe to use it in common
     compileOnly(libs.mixinExtras.common)
     annotationProcessor(libs.mixinExtras.common)
+
+    implementation(libs.cobblemon.common)
 }
 
 configurations {

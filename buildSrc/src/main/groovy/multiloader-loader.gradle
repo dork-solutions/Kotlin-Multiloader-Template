@@ -17,6 +17,13 @@ configurations {
     }
 }
 
+repositories {
+    maven {
+        name = "cobblemon"
+        url = uri("https://artefacts.cobblemon.com/releases/")
+    }
+}
+
 dependencies {
     compileOnly(project(':common')) {
         capabilities {

@@ -7,14 +7,12 @@ val modId: String by project
 
 dependencies {
     minecraft(libs.minecraft)
-    mappings(loom.layered {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${libs.versions.parchmentMC.get()}:${libs.versions.parchment.get()}@zip")
-    })
+    mappings(loom.officialMojangMappings())
     modImplementation(libs.fabricLoader)
     modImplementation(libs.fabricApi)
 
     modImplementation(libs.flk)
+    modImplementation(libs.cobblemon.fabric)
 }
 
 loom {

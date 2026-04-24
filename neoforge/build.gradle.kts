@@ -8,15 +8,11 @@ plugins {
 val modId: String by project
 
 neoForge {
-    version = libs.versions.neoforge
+    version = libs.versions.neoforge.get()
     // Automatically enable neoforge AccessTransformers if the file exists
     val at = project(":common").file("src/main/resources/META-INF/accesstransformer.cfg")
     if (at.exists()) {
         accessTransformers.from(at.absolutePath)
-    }
-    parchment {
-        minecraftVersion = libs.versions.parchmentMC
-        mappingsVersion = libs.versions.parchment
     }
     runs {
         configureEach {
@@ -44,4 +40,5 @@ sourceSets.main.get().resources { srcDir("src/generated/resources") }
 
 dependencies {
     implementation(libs.kff)
+    implementation(libs.cobblemon.neoforge)
 }
