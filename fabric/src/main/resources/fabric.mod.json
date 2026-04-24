@@ -5,7 +5,7 @@
     "name": "${mod_name}",
     "description": "${description}",
     "authors": [
-        "${mod_author}"
+        "${mod_authors}"
     ],
     "contact": {
         "homepage": "https://fabricmc.net/",
@@ -27,11 +27,11 @@
         "${mod_id}.fabric.mixins.json"
     ],
     "depends": {
-        "fabricloader": ">=${fabric_loader_version}",
-        "fabric-api": "*",
-        "minecraft": "${minecraft_version}",
         "java": ">=${java_version}",
-        "fabric-language-kotlin": ">=${flk_version}"
+        "minecraft": "${minecraft_version}",
+        "fabricloader": ">=${fabric_loader_version}",
+        "fabric-language-kotlin": ">=${fabric_kotlin_version}",
+        "fabric-api": "*"
     },
     "suggests": {
         "another-mod": "*"
