@@ -4,15 +4,11 @@ plugins {
 }
 
 val modId: String by project
+val useCobbleSnap: Boolean
+    get() = rootProject.property("useCobbleSnap").toString().toBoolean()
 
-dependencies {
-    minecraft(libs.minecraft)
-    mappings(loom.officialMojangMappings())
-    modImplementation(libs.fabricLoader)
-    modImplementation(libs.fabricApi)
-
-    modImplementation(libs.flk)
-    modImplementation(libs.cobblemon.fabric)
+dokka.dokkaPublications.html {
+    moduleName.set("${rootProject.property("modName")} - Fabric")
 }
 
 loom {
@@ -25,16 +21,50 @@ loom {
     }
     runs {
         named("client") {
+            configName = "Fabric Client"
             client()
-            setConfigName("Fabric Client")
             ideConfigGenerated(true)
             runDir("runs/client")
         }
         named("server") {
+            configName = "Fabric Server"
             server()
-            setConfigName("Fabric Server")
             ideConfigGenerated(true)
             runDir("runs/server")
+        }
+    }
+}
+
+dependencies {
+    minecraft(libs.minecraft)
+    mappings(loom.officialMojangMappings())
+    modImplementation(libs.fabricLoader)
+    modImplementation(libs.fabricApi)
+    modImplementation(libs.flk)
+
+    if (!useCobbleSnap) {
+        modImplementation(libs.cobblemon.fabric)
+    } else {
+        modImplementation(libs.cobblemon.fabric.snap)
+        runtimeOnly(libs.bundles.graal)
+    }
+}
+
+val loaderAttribute = Attribute.of("io.github.mcgradleconventions.loader", String::class.java)
+listOf("apiElements", "runtimeElements", "sourcesElements", "javadocElements").forEach { variant ->
+    configurations.named(variant) {
+        attributes {
+            attribute(loaderAttribute, "fabric")
+        }
+    }
+}
+
+sourceSets.configureEach {
+    listOf(compileClasspathConfigurationName, runtimeClasspathConfigurationName).forEach { variant->
+        configurations.named(variant) {
+            attributes {
+                attribute(loaderAttribute, "fabric")
+            }
         }
     }
 }

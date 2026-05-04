@@ -1,6 +1,6 @@
-package com.example.examplemod.mixin;
+package com.example.examplemod.common.mixin;
 
-import com.example.examplemod.Constants;
+import com.example.examplemod.common.Constants;
 import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

@@ -1,10 +1,8 @@
-import org.jetbrains.dokka.gradle.tasks.DokkaBaseTask
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     id("java")
     id("java-library")
     id("multiloader-common")
+    id("multiloader-dokka")
     id("org.jetbrains.kotlin.jvm")
 }
 
@@ -24,31 +22,25 @@ val commonResources = configurations.create("commonResources") {
 
 dependencies {
     compileOnly(project(":common")) {
-        capabilities {
-            requireCapability("$group:$modId")
+        val loaderAttribute = Attribute.of("io.github.mcgradleconventions.loader", String::class.java)
+        attributes {
+            attribute(loaderAttribute, "common")
         }
     }
 
+    dokka(project(":common"))
     commonJava(project(":common", configuration = "commonJava"))
     commonKotlin(project(":common", configuration = "commonKotlin"))
     commonResources(project(":common", configuration = "commonResources"))
 }
 
-dokka {
-    dokkaSourceSets {
-        configureEach {
-            sourceRoots.from(commonJava.singleFile, commonKotlin.singleFile)
-        }
-    }
-}
-
 tasks {
-    named<JavaCompile>("compileJava") {
+    compileJava  {
         dependsOn(commonJava)
         source(commonJava)
     }
 
-    named<KotlinCompile>("compileKotlin") {
+    compileKotlin {
         dependsOn(commonJava)
         dependsOn(commonKotlin)
         source(commonJava)
@@ -67,10 +59,5 @@ tasks {
         from(commonKotlin)
         dependsOn(commonResources)
         from(commonResources)
-    }
-
-    named("dokkaGenerate") {
-        dependsOn(commonJava)
-        dependsOn(commonKotlin)
     }
 }

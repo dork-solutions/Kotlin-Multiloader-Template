@@ -1,12 +1,14 @@
-package com.example.examplemod.platform.services
+package com.example.examplemod.common.api
 
-interface PlatformHelper {
+import com.example.examplemod.common.Constants
+
+interface ExampleModPlatform {
     /**
      * Gets the name of the current platform
      *
      * @return The name of the current platform.
      */
-    fun getPlatformName(): String
+    fun getPlatformName(): Constants.PLATFORM
 
     /**
      * Checks if a mod with the given id is loaded.

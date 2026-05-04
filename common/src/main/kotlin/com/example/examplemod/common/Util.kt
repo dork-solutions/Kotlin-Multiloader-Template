@@ -1,4 +1,4 @@
-package com.example.examplemod
+package com.example.examplemod.common
 
 import net.minecraft.resources.ResourceLocation
 

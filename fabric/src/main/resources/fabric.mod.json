@@ -9,7 +9,7 @@
     ],
     "contact": {
         "homepage": "https://fabricmc.net/",
-        "sources": "https://github.com/FabricMC/fabric-example-mod"
+        "sources": "https://github.com/gitoido-mc/Kotlin-Multiloader-Template"
     },
     "license": "${license}",
     "icon": "${mod_id}.png",
@@ -18,12 +18,12 @@
         "main": [
             {
                 "adapter": "kotlin",
-                "value": "com.example.examplemod.ExampleModKt::init"
+                "value": "com.example.examplemod.fabric.ExampleModFabric::init"
             }
         ]
     },
     "mixins": [
-        "${mod_id}.mixins.json",
+        "${mod_id}.common.mixins.json",
         "${mod_id}.fabric.mixins.json"
     ],
     "depends": {

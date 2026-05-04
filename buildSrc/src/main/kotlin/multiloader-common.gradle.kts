@@ -1,13 +1,11 @@
-import org.jetbrains.dokka.gradle.engine.parameters.VisibilityModifier
 import utilities.requireCatalogVersions
 
 plugins {
     id("java")
     id("java-library")
-    id("maven-publish")
     id("org.jetbrains.kotlin.jvm")
     id("org.jetbrains.dokka")
-//    id("multiloader-dokka")
+    id("multiloader-dokka")
 }
 
 val modId: String by project
@@ -69,19 +67,6 @@ repositories {
     maven("https://artefacts.cobblemon.com/releases/")
 }
 
-// Declare capabilities on the outgoing configurations.
-// Read more about capabilities here: https://docs.gradle.org/current/userguide/component_capabilities.html#sec:declaring-additional-capabilities-for-a-local-component
-listOf("apiElements", "runtimeElements", "sourcesElements", "javadocElements").forEach { variant ->
-    configurations[variant].outgoing {
-        capability("$group:${base.archivesName.get()}:$version")
-        capability("$group:$modId-${project.name}-${mcVersion}:$version")
-        capability("$group:$modId:$version")
-    }
-    publishing.publications.configureEach {
-        (this as MavenPublication).suppressPomMetadataWarningsFor(variant)
-    }
-}
-
 tasks {
     processResources {
         val expandProps = mapOf(
@@ -135,18 +120,5 @@ tasks {
                 "Built-On-Minecraft"     to mcVersion
             ))
         }
-    }
-}
-
-publishing {
-    publications {
-        register<MavenPublication>("mavenJava") {
-            artifactId = base.archivesName.get()
-            from(components["java"])
-        }
-    }
-
-    repositories {
-        mavenLocal()
     }
 }

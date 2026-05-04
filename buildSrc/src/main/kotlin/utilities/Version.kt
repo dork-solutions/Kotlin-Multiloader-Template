@@ -1,6 +1,5 @@
 package utilities
 
-import gradle.kotlin.dsl.accessors._ef6ec7848131bff92226e36f14b6a3b0.ext
 import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog

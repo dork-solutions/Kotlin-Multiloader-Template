@@ -10,15 +10,31 @@ neoForge {
     if (at.exists()) {
         accessTransformers.from(at.absolutePath)
     }
+
+    parchment {
+        minecraftVersion = libs.versions.parchmentMC
+        mappingsVersion = libs.versions.parchment
+    }
 }
+
+dokka.dokkaPublications.html {
+    moduleName.set("${rootProject.property("modName")} - Common")
+}
+
+val useCobbleSnap: Boolean
+    get() = rootProject.property("useCobbleSnap").toString().toBoolean()
 
 dependencies {
     compileOnly(libs.mixin)
-    // fabric and neoforge both bundle mixinextras, so it is safe to use it in common
     compileOnly(libs.mixinExtras.common)
     annotationProcessor(libs.mixinExtras.common)
 
-    implementation(libs.cobblemon.common)
+    if (!useCobbleSnap) {
+        implementation(libs.cobblemon.common)
+    } else {
+
+        implementation(libs.cobblemon.common.snap)
+    }
 }
 
 configurations {
@@ -40,4 +56,23 @@ artifacts {
     add("commonJava", sourceSets.main.get().java.sourceDirectories.singleFile)
     add("commonKotlin", sourceSets.main.get().kotlin.sourceDirectories.filter { !it.name.endsWith("java") }.singleFile)
     add("commonResources", sourceSets.main.get().resources.sourceDirectories.singleFile)
+}
+
+val loaderAttribute = Attribute.of("io.github.mcgradleconventions.loader", String::class.java)
+listOf("apiElements", "runtimeElements", "sourcesElements", "javadocElements").forEach { variant ->
+    configurations.named(variant) {
+        attributes {
+            attribute(loaderAttribute, "common")
+        }
+    }
+}
+
+sourceSets.configureEach {
+    listOf(compileClasspathConfigurationName, runtimeClasspathConfigurationName).forEach { variant->
+        configurations.named(variant) {
+            attributes {
+                attribute(loaderAttribute, "common")
+            }
+        }
+    }
 }
